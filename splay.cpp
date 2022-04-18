@@ -1,6 +1,8 @@
+// SPLAY TREE PSEUDOCODE ADOPTED FROM https://algorithmtutor.com/Data-Structures/Tree/Splay-Trees/
+
 #include <iostream>
 #include <fstream>
-// SPLAY TREE PSEUDOCODE ADOPTED FROM https://algorithmtutor.com/Data-Structures/Tree/Splay-Trees/
+#include <sstream>
 
 using namespace std;
 
@@ -295,21 +297,32 @@ void Splay::split(nptr& n1, nptr& n2, nptr& n3) {
 
 int main() {
 	Splay tree;
-	tree.insert(33);
-	tree.preorder(tree.getRoot());
-    cout << endl;
-	tree.deleteN(31);
-	tree.search(33);
-	tree.deleteN(33);
-	tree.preorder(tree.getRoot());
-    cout << endl;
+    // sample commands
+	// tree.insert(33);
+	// tree.preorder(tree.getRoot());
+    // cout << endl;
+	// tree.deleteN(31);
+	// tree.search(33);
+	// tree.deleteN(33);
+	// tree.preorder(tree.getRoot());
+    // cout << endl;
 
-	// load in csv
-	// insert all rows into the tree
-
-    fstream dat;
+    ifstream dat;
     dat.open("PP_recipes.csv", ios::in);
-    
+    if (dat.is_open()) {
+        string line;
+        getline(dat, line);
+        getline(dat, line);
 
+        while (getline(dat, line)) {
+            istringstream stream(line);
+            string id;
+            string rest;
+            getline(stream, id, ',');
+            getline(stream, rest);
+            tree.insert(stoi(id));
+        }
+    }
+    
 	return 0;
 }
