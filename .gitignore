@@ -23,6 +23,7 @@ data/
 PP_recipes.csv
 todo.txt
 a.exe
+pre_splay.cpp
 
 # Coverage reports
 htmlcov/
