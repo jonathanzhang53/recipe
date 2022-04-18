@@ -16,10 +16,6 @@ struct Node
    int height = 0;
    int balanceFactor = 0;
 
-   Node()
-   {
-
-   }
    Node(int ID)
    {
        this->ID = ID;
@@ -32,8 +28,6 @@ class RBT
     int nodeCount;
     
     
-    //https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm
-    //Used this and the lecture slides as a general format for the rotations
     void rotateRight(Node* root, Node* node)
     {
         Node* temp = node->left;
@@ -285,10 +279,10 @@ int main()
 {
     RBT rbt;
     loadData("PP_recipes.csv", rbt);
-    cout << "inorder of rbt: " << endl;
-    rbt.printPreOrder(rbt.getRoot());
+    //cout << "inorder of rbt: " << endl;
+    //rbt.printPreOrder(rbt.getRoot());
 
-    cout << "\nSearch for something now (input an integer)" << endl;
+    cout << "\nData Loaded. Search for something now (input an integer)" << endl;
     int input;
     cin >>input;
     rbt.searchID(input);
