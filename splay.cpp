@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// node struct
 struct Node {
 	int val;
 	Node* p;
@@ -15,6 +16,7 @@ struct Node {
 
 typedef Node* nptr;
 
+// splay tree class implementation
 class Splay {
 private:
     nptr root;
@@ -42,14 +44,17 @@ public:
     void deleteN(int val);
 };
 
+// default constructor
 Splay::Splay() {
 	root = nullptr;
 }
 
+// root access
 nptr Splay::getRoot() {
     return this->root;
 }
 
+// search for a node
 nptr Splay::search(int key) {
     nptr found = searchHelper(getRoot(), key);
     if (found != nullptr) {
@@ -58,6 +63,7 @@ nptr Splay::search(int key) {
     return found;
 }
 
+// return minimum key at a node
 nptr Splay::minKey(nptr node) {
     while (node->l != nullptr) {
         node = node->l;
@@ -65,6 +71,7 @@ nptr Splay::minKey(nptr node) {
     return node;
 }
 
+// return maximum key at a node
 nptr Splay::maxKey(nptr node) {
     while (node->r != nullptr) {
         node = node->r;
@@ -72,6 +79,7 @@ nptr Splay::maxKey(nptr node) {
     return node;
 }
 
+// successor helper function
 nptr Splay::successor(nptr node) {
     if (node->r != nullptr) {
         return minKey(node->r);
@@ -84,6 +92,7 @@ nptr Splay::successor(nptr node) {
     return ancestor; 
 }
 
+// predecessor helper function
 nptr Splay::predecessor(nptr node) {
     if (node->l != nullptr) {
         return maxKey(node->l);
@@ -96,6 +105,7 @@ nptr Splay::predecessor(nptr node) {
     return ancestor;
 }
 
+// preorder printing of the tree
 void Splay::preorder(nptr node) {
     if (node != nullptr) {
         cout << node->val << " ";
@@ -104,6 +114,7 @@ void Splay::preorder(nptr node) {
     } 
 }
 
+// inorder printing of the tree
 void Splay::inorder(nptr node) {
     if (node != nullptr) {
         inorder(node->l);
@@ -112,6 +123,7 @@ void Splay::inorder(nptr node) {
     } 
 }
 
+// postorder printing of the tree
 void Splay::postorder(nptr node) {
     if (node != nullptr) {
         postorder(node->l);
@@ -120,6 +132,7 @@ void Splay::postorder(nptr node) {
     } 
 }
 
+// insert a node
 void Splay::insert(int key) {
     nptr node = new Node;
     node->p = nullptr;
@@ -150,10 +163,12 @@ void Splay::insert(int key) {
     splay(node);
 }
 
+// delete a node
 void Splay::deleteN(int val) {
     deleteHelper(getRoot(), val);
 }
 
+// search helper function
 nptr Splay::searchHelper(nptr node, int key) {
     if (node == nullptr || key == node->val) {
         return node;
@@ -164,6 +179,7 @@ nptr Splay::searchHelper(nptr node, int key) {
     return searchHelper(node->r, key);
 }
 
+// join two nodes
 nptr Splay::join(nptr node1, nptr node2) {
     if (node1 == nullptr) {
         return node2;
@@ -178,6 +194,7 @@ nptr Splay::join(nptr node1, nptr node2) {
     return maxN;
 }
 
+// delete helper function
 void Splay::deleteHelper(nptr node, int key) {
     nptr search = nullptr;
     while (node != nullptr){
@@ -203,6 +220,7 @@ void Splay::deleteHelper(nptr node, int key) {
     root = join(n1->l, n2);
 }
 
+// rotate left algorithm
 void Splay::rotateLeft(nptr node) {
     nptr rnode = node->r;
     node->r = rnode->l;
@@ -224,6 +242,7 @@ void Splay::rotateLeft(nptr node) {
     node->p = rnode;
 }
 
+// rotate right algorithm
 void Splay::rotateRight(nptr node) {
     nptr lnode = node->l;
     node->l = lnode->r;
@@ -245,6 +264,7 @@ void Splay::rotateRight(nptr node) {
     node->p = lnode;
 }
 
+// splay function
 void Splay::splay(nptr node) {
     while (node->p) {
         if (!node->p->p) {
@@ -280,6 +300,7 @@ void Splay::splay(nptr node) {
     }
 }
 
+// split between 3 nodes
 void Splay::split(nptr& n1, nptr& n2, nptr& n3) {
     splay(n1);
     if (n1->r) {
@@ -307,6 +328,7 @@ int main() {
 	// tree.preorder(tree.getRoot());
     // cout << endl;
 
+    // read in recipe key data
     ifstream dat;
     dat.open("PP_recipes.csv", ios::in);
     if (dat.is_open()) {
